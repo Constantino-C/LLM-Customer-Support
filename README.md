@@ -1,4 +1,4 @@
-# Customer Support Assistant
+# Customer Support AI Assistant 🤝 
 
 This project demonstrates how **fine-tuned language models (using LoRA methods)** can transform messy customer support feedback into **structured records**.  
 
@@ -19,7 +19,7 @@ By structuring support feedback into clean records, businesses can:
 
 ---
 
-## Project Features
+## Project Features ✨
 
 - **Generating synthetic and realistic data** simulating customer support scenarios.
 - **LoRA methods** for fine-tuning of LLMs for domain-specific adaptation.
@@ -30,24 +30,24 @@ By structuring support feedback into clean records, businesses can:
 
 ## Quickstart
 
-1. Environment setup
+### ⚙️ Environment setup
 
 conda create -n customer-support python=3.11 -y <br>
 conda activate customer-support <br>
 pip install -e . <br>
 
-2. Generate synthetic data
+### 🛠️ Generate synthetic data
 
-python -m LLM-finetuning-for-Customer-Support-Assistant.synth --n_train 5000 --n_val 500 --out_dir data <br>
+python -m SupportAI.synth --n_train 5000 --n_val 500 --out_dir data <br>
 
-3. Fine-tune with LoRA
+### 🎯 Fine-tune with LoRA
 
-python -m LLM-finetuning-for-Customer-Support-Assistant.train_lora --config configs/train.yaml
-4. Evaluate the adapter
-bash
-Copy code
-python -m ticketsmith.eval_json --data data/synthetic_val_pairs.jsonl --adapter_path outputs/lora-adapter
-5. Run the demo
-bash
-Copy code
-python app.py --adapter_path outputs/lora-adapter
+python -m SupportAI.train_lora --config configs/train.yaml<br>
+
+### 📊 Evaluate the adapter
+
+python -m SupportAI.eval_json --data data/synthetic_val_pairs.jsonl --adapter_path outputs/lora-adapter <br>
+
+### 💻 Run the demo
+
+python app.py --adapter_path outputs/lora-adapter<br>
