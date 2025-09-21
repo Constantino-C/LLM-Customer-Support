@@ -1,0 +1,16 @@
+seed: 42
+base_model: TinyLlama/TinyLlama-1.1B-Chat-v1.0
+use_qlora: false
+lora_r: 4
+lora_alpha: 8
+lora_dropout: 0.05
+bf16: false
+lr: 2.0e-4
+batch_size: 1
+grad_accum: 4
+max_steps: 20
+warmup_ratio: 0.03
+max_seq_len: 512
+save_dir: outputs/lora-adapter
+train_file: data/synthetic_train.jsonl
+val_file: data/synthetic_val.jsonl

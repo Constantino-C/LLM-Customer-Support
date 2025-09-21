@@ -31,23 +31,28 @@ By structuring support feedback into clean records, businesses can:
 ## Quickstart
 
 ### ⚙️ Environment setup
+```
+At the root directory SupportAI:
 
 conda create -n customer-support python=3.11 -y <br>
 conda activate customer-support <br>
 pip install -e . <br>
 
+```
 ### 🛠️ Generate synthetic data
 
-python -m SupportAI.synth --n_train 5000 --n_val 500 --out_dir data <br>
-
+```
+python -m assistant.synth --n_train 5000 --n_val 500 --out_dir data <br>
+```
 ### 🎯 Fine-tune with LoRA
-
-python -m SupportAI.train_lora --config configs/train.yaml<br>
-
+```
+python -m assistant.train_lora --config configs/train.yaml<br>
+```
 ### 📊 Evaluate the adapter
-
-python -m SupportAI.eval_json --data data/synthetic_val_pairs.jsonl --adapter_path outputs/lora-adapter <br>
-
+```
+python -m assistant.eval_json --data data/synthetic_val_pairs.jsonl --adapter_path outputs/lora-adapter <br>
+```
 ### 💻 Run the demo
-
+```
 python app.py --adapter_path outputs/lora-adapter<br>
+```
