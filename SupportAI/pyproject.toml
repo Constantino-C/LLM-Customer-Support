@@ -1,7 +1,7 @@
 [project]
 name = "assistant"
 version = "0.1.0"
-description = "Fine-tune a small open LLM (LoRA/QLoRA) to structure customer support text into JSON"
+description = "Fine-tune a small open LLM (LoRA) to structure customer support text into JSON"
 authors = [{ name = "Costantinos Constantinou" }]
 license = { text = "MIT" }
 requires-python = ">=3.11"

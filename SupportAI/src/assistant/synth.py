@@ -81,7 +81,7 @@ def make_example() -> Dict:
     product = random.choice(PRODUCTS)
     sentiment_weights = SENTIMENT_WEIGHTS.get(category)
     sentiment = random.choices(SENTIMENTS, weights=sentiment_weights)[0]
-    priority_weights = PRIORITY_WEIGHTS_SENTIMNET.get((category, sentiment))
+    priority_weights = PRIORITY_WEIGHTS.get((category, sentiment))
     priority = random.choices(PRIORITIES, weights=priority_weights)[0]
     issue = random.choice(ISSUES[category])
     name = random.choice(NAMES)
