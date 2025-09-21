@@ -1,4 +1,3 @@
-from __future__ import annotations
 import json, random, argparse, os
 from typing import List, Dict
 from .formatting import CATEGORIES, PRODUCTS, PRIORITIES, SENTIMENTS, format_prompt, TARGET_JSON_SCHEMA
@@ -24,7 +23,7 @@ ISSUES = {
     ],
     "feature_request": [
     "Need dark mode",
-    "Please add SSO with Okta",
+    "Please add functionality of extra users",
     "Custom roles for teams",
     ],
     "shipping": [
@@ -36,26 +35,57 @@ ISSUES = {
 
 TEMPLATES = [
 "Hi team, I'm {name} on the {product} plan. {issue}. This is really {feeling}!",
-"Hello, {issue}. I'm using {product} and it's getting {feeling}. Please fix.",
+"Hello, {issue}. I'm using {product} and it's {feeling}. Please fix.",
 "My company is on {product}. {issue}. Priority should be {priority}.",
 "I tried support but no luck: {issue}. Using {product}.",
 ]
 
 FEELINGS = {
 "negative": ["frustrating", "unacceptable", "blocking", "bad"],
-"neutral": ["inconvenient", "annoying"],
-"positive": ["okay now", "resolved after retry"],
+"neutral": ["inconvenient", "annoying", "not as expected", "mediocre"],
+"positive": ["just ok", "resolved after retry", "improved", "better than before"],
+}
+
+PRIORITY_WEIGHTS = {
+    ("billing", "negative"):  [0.05, 0.25, 0.45, 0.25],
+    ("billing", "neutral"):   [0.15, 0.50, 0.30, 0.05],
+    ("billing", "positive"):  [0.40, 0.50, 0.09, 0.01],
+
+    ("login", "negative"):    [0.05, 0.25, 0.50, 0.20],
+    ("login", "neutral"):     [0.20, 0.55, 0.20, 0.05],
+    ("login", "positive"):    [0.50, 0.40, 0.09, 0.01],
+
+    ("bug", "negative"):      [0.10, 0.30, 0.40, 0.20],
+    ("bug", "neutral"):       [0.25, 0.50, 0.20, 0.05],
+    ("bug", "positive"):      [0.50, 0.40, 0.08, 0.02],
+
+    ("feature_request", "negative"): [0.50, 0.45, 0.05, 0.00],
+    ("feature_request", "neutral"):  [0.60, 0.35, 0.05, 0.00],
+    ("feature_request", "positive"): [0.70, 0.28, 0.02, 0.00],
+
+    ("shipping", "negative"):  [0.10, 0.35, 0.35, 0.20],
+    ("shipping", "neutral"):   [0.25, 0.50, 0.20, 0.05],
+    ("shipping", "positive"):  [0.50, 0.40, 0.09, 0.01],
+}
+
+SENTIMENT_WEIGHTS = {
+    "billing" :  [0.6,0.3,0.1],
+    "login" :   [0.4, 0.4, 0.2],
+    "bug" :  [0.6, 0.3, 0.1],
+    "feature_request" :  [0.15, 0.45, 0.4],
+    "shipping" : [0.55, 0.35, 0.1]
 }
 
 def make_example() -> Dict:
     category = random.choice(CATEGORIES)
     product = random.choice(PRODUCTS)
-    sentiment = random.choices(SENTIMENTS, weights=[0.6, 0.3, 0.1])[0]
-    priority = random.choices(PRIORITIES, weights=[0.3, 0.4, 0.2, 0.1])[0]
+    sentiment_weights = SENTIMENT_WEIGHTS.get(category)
+    sentiment = random.choices(SENTIMENTS, weights=sentiment_weights)[0]
+    priority_weights = PRIORITY_WEIGHTS_SENTIMNET.get((category, sentiment))
+    priority = random.choices(PRIORITIES, weights=priority_weights)[0]
     issue = random.choice(ISSUES[category])
     name = random.choice(NAMES)
     feeling = random.choice(FEELINGS[sentiment])
-
     text = random.choice(TEMPLATES).format(
     name=name, product=product, issue=issue, feeling=feeling, priority=priority
     )
@@ -89,8 +119,8 @@ def main(n_train: int, n_val: int, out_dir: str):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--n_train", type=int, default=5000)
-    ap.add_argument("--n_val", type=int, default=500)
+    ap.add_argument("--n_train", type=int, default=1000)
+    ap.add_argument("--n_val", type=int, default=200)
     ap.add_argument("--out_dir", type=str, default="data")
     args = ap.parse_args()
     main(args.n_train, args.n_val, args.out_dir)
