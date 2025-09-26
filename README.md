@@ -1,6 +1,6 @@
 # Customer Support AI Assistant 🤝 
 
-This project demonstrates how **fine-tuned language models (using LoRA methods)** can transform messy customer support feedback into **structured records**.  
+This project demonstrates how **fine-tuned language models (using LoRA methods)** can transform customer support feedback into **structured records**.  
 
 Inneficiently handled customer feedback leads to:
 
@@ -42,17 +42,19 @@ pip install -e . <br>
 ### 🛠️ Generate synthetic data
 
 ```
-python -m assistant.synth --n_train 5000 --n_val 500 --out_dir data <br>
+python -m assistant.synth --n_train 5000 --n_val 500 --out_dir data
 ```
 ### 🎯 Fine-tune with LoRA
 ```
-python -m assistant.train_lora --config configs/train.yaml<br>
+python -m assistant.train_lora --config_path configs/train.yaml
 ```
 ### 📊 Evaluate the adapter
 ```
-python -m assistant.eval_json --data data/synthetic_val_pairs.jsonl --adapter_path outputs/lora-adapter <br>
+python -m assistant.eval_json --data data/synthetic_val_pairs.jsonl --adapter_path outputs/lora-adapter
 ```
 ### 💻 Run the demo
 ```
-python app.py --adapter_path outputs/lora-adapter<br>
+python app.py
 ```
+![alt text](app_output.png)
+
