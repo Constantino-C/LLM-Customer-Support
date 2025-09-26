@@ -1,0 +1,5 @@
+{"message": "I tried support but no luck: I was charged twice. Using Basic.", "expected": {"category": "billing", "priority": "medium", "product": "Basic", "sentiment": "neutral", "summary": "I was charged twice"}}
+{"message": "I tried support but no luck: Refund still not processed. Using Basic.", "expected": {"category": "billing", "priority": "medium", "product": "Basic", "sentiment": "negative", "summary": "Refund still not processed"}}
+{"message": "My company is on Pro. 2FA code never arrives. Priority should be high.", "expected": {"category": "login", "priority": "high", "product": "Pro", "sentiment": "neutral", "summary": "2FA code never arrives"}}
+{"message": "Hi team, I'm Sam on the Basic plan. Export to CSV crashes. This is really bad!", "expected": {"category": "bug", "priority": "high", "product": "Basic", "sentiment": "negative", "summary": "Export to CSV crashes"}}
+{"message": "I tried support but no luck: Mobile app freezes on login. Using Pro.", "expected": {"category": "bug", "priority": "high", "product": "Pro", "sentiment": "neutral", "summary": "Mobile app freezes on login"}}

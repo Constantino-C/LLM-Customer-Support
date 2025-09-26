@@ -116,6 +116,10 @@ def main(n_train: int, n_val: int, out_dir: str):
     with open(os.path.join(out_dir, "synthetic_val.jsonl"), "w", encoding="utf-8") as f:
         for ex in val: f.write(json.dumps(ex, ensure_ascii=False) + "\n")
     print(f"Wrote {len(train)} train and {len(val)} val to {out_dir}")
+    with open(os.path.join(out_dir, "synthetic_val_pairs.jsonl"), "w", encoding="utf-8") as f:
+        for _ in range(n_val):
+            ex = make_example()
+            f.write(json.dumps(ex, ensure_ascii=False) + "\n")
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
