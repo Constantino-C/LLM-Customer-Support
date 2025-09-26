@@ -13,7 +13,7 @@ def load(base_model: str, adapter_path: str):
     return tokenizer, model
 
 
-def predict(message: str, tokenizer, model, max_new_tokens=256, temperature=0.1, top_p=0.9):
+def predict(message: str, tokenizer: AutoTokenizer, model: PeftModel , max_new_tokens=256, temperature=0.1, top_p=0.9):
     prompt = format_prompt(message)
     device = next(model.parameters()).device
     inputs = tokenizer(prompt, return_tensors="pt").to(device)
